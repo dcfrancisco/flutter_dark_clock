@@ -1,35 +1,38 @@
 import 'dart:async';
 
-import 'package:clock/clock/hours.dart';
-import 'package:clock/clock/minutes.dart';
-import 'package:clock/clock/seconds.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter_dark_clock/clock/hours.dart';
+import 'package:flutter_dark_clock/clock/minutes.dart';
+import 'package:flutter_dark_clock/clock/seconds.dart';
 
 class ClockHands extends StatefulWidget {
+  const ClockHands({super.key});
+
   @override
   _ClockHandsState createState() => _ClockHandsState();
 }
 
-class _ClockHandsState extends State<ClockHands> {
-  Timer _timer;
-  DateTime dateTime;
+class _ClockHandsState extends State<ClockHands>
+    with SingleTickerProviderStateMixin {
+  late Ticker _ticker;
+  DateTime dateTime = DateTime.now();
 
   @override
   void initState() {
     super.initState();
-    dateTime = new DateTime.now();
-    _timer = new Timer.periodic(Duration(seconds: 1), setTime);
+    _ticker = createTicker(_onTick)..start();
   }
 
-  void setTime(Timer timer) {
+  void _onTick(Duration elapsed) {
     setState(() {
-      dateTime = new DateTime.now();
+      dateTime = DateTime.now();
     });
   }
 
   @override
   void dispose() {
-    _timer.cancel();
+    _ticker.dispose();
     super.dispose();
   }
 
@@ -37,31 +40,19 @@ class _ClockHandsState extends State<ClockHands> {
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
-        Container(
-          child: CustomPaint(
-            size: Size(250, 250),
-            painter: Seconds(
-              seconds: dateTime.second,
-            ),
-          ),
+        CustomPaint(
+          size: const Size(250, 250),
+          painter: SecondsPainter(
+              seconds: (dateTime.second + dateTime.millisecond / 1000).toInt()),
         ),
-        Container(
-          child: CustomPaint(
-            size: Size(250, 250),
-            painter: Minutes(
-              minutes: dateTime.minute,
-              seconds: dateTime.second,
-            ),
-          ),
+        CustomPaint(
+          size: const Size(250, 250),
+          painter: MinutesPainter(
+              minutes: dateTime.minute, seconds: dateTime.second.toDouble()),
         ),
-        Container(
-          child: CustomPaint(
-            size: Size(250, 250),
-            painter: Hours(
-              hours: dateTime.hour,
-              minutes: dateTime.minute,
-            ),
-          ),
+        CustomPaint(
+          size: const Size(250, 250),
+          painter: HoursPainter(hours: dateTime.hour, minutes: dateTime.minute),
         )
       ],
     );

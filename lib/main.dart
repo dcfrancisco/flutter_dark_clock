@@ -1,13 +1,15 @@
-import 'package:clock/screens/clock.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dark_clock/screens/clock.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'Clock',
       home: Clock(),
     );

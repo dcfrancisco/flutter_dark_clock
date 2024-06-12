@@ -28,8 +28,8 @@ class ClockDialog extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    var tickMarkLength;
-    final angle = 2 * pi / 60;
+    double tickMarkLength;
+    const angle = 2 * pi / 60;
     final radius = size.width / 2;
     canvas.save();
 

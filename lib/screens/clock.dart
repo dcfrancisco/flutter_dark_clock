@@ -1,32 +1,32 @@
-import 'package:clock/screens/clock_dialog.dart';
-import 'package:clock/screens/clock_face.dart';
-import 'package:clock/screens/clock_hands.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_dark_clock/screens/clock_dialog.dart';
+import 'package:flutter_dark_clock/screens/clock_face.dart';
+import 'package:flutter_dark_clock/screens/clock_hands.dart';
 
 class Clock extends StatelessWidget {
+  const Clock({super.key});
+
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIOverlays([]);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
     return Scaffold(
       backgroundColor: Colors.grey[850],
       body: Stack(
         children: <Widget>[
-          Center(
+          const Center(
             child: ClockFace(
               height: 320,
               width: 320,
             ),
           ),
           Center(
-            child: Container(
-              child: CustomPaint(
-                size: Size(300, 300),
-                painter: ClockDialog(),
-              ),
+            child: CustomPaint(
+              size: const Size(300, 300),
+              painter: ClockDialog(),
             ),
           ),
-          Center(
+          const Center(
             child: ClockHands(),
           )
         ],
