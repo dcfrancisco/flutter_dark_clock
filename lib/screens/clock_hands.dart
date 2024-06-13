@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_dark_clock/clock/hours.dart';
@@ -42,12 +41,13 @@ class _ClockHandsState extends State<ClockHands>
         CustomPaint(
           size: const Size(250, 250),
           painter: SecondsPainter(
-              seconds: (dateTime.second + dateTime.millisecond / 1000).toInt()),
+              seconds: dateTime.second + dateTime.millisecond / 1000),
         ),
         CustomPaint(
           size: const Size(250, 250),
           painter: MinutesPainter(
-              minutes: dateTime.minute, seconds: dateTime.second.toDouble()),
+              minutes: dateTime.minute,
+              seconds: dateTime.second + dateTime.millisecond / 1000),
         ),
         CustomPaint(
           size: const Size(250, 250),

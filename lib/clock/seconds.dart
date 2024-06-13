@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class SecondsPainter extends CustomPainter {
   final Paint secondHandPaint;
-  final int seconds;
+  final double seconds;
 
   SecondsPainter({required this.seconds}) : secondHandPaint = Paint() {
     secondHandPaint.color = Colors.red;
